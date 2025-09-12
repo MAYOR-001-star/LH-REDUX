@@ -1,4 +1,5 @@
 import React from "react";
+import FormPayment from "../componenets/FormPayment";
 
 const Payment = () => {
   const items = [
@@ -8,12 +9,8 @@ const Payment = () => {
 
   return (
     <div className="pt-[6rem] px-4 lg:px-12 text-white">
-      {/* Title */}
       <h1 className="text-2xl font-semibold mb-6">Checkout</h1>
-
-      {/* Layout */}
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Summary */}
         <div className="h-fit lg:w-1/3 bg-[#111] p-6 rounded-2xl shadow">
           <h2 className="text-xl font-semibold mb-4">Summary</h2>
           <div className="flex justify-between text-sm mb-2">
@@ -35,7 +32,7 @@ const Payment = () => {
         </div>
 
         {/* Payment Form */}
-        <div className="flex-1 bg-[#111] p-6 rounded-2xl shadow"></div>
+        <FormPayment />
       </div>
     </div>
   );
