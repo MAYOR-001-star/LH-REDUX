@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <nav className="bg-[#242222] p-4 flex justify-between items-center fixed z-20 w-full">
       <div>
-        <img src="/logo2.webp" alt="company-logo" className="w-[5rem]" />
+        <img src="/logo.svg" alt="company-logo" className="w-[3rem]" />
       </div>
       <div className="flex justify-between gap-4 items-center">
         <Link to="/" className="text-white">
