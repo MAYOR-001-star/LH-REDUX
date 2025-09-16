@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
 import { useGetCategoryQuery } from "../services/CategoryApi";
 import Products from "./Products";
 
