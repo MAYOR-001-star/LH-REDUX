@@ -1,11 +1,9 @@
 import React from "react";
 import FormPayment from "../componenets/FormPayment";
+import { useSelector } from "react-redux";
 
 const Payment = () => {
-  const items = [
-    { id: 1, name: "Atlas Cloud Sync", price: 149.99, quantity: 1 },
-    { id: 2, name: "AAI Script Pack 1", price: 139.99, quantity: 1 },
-  ];
+  const totalItemsPurchased = useSelector((store)=>store.cart.amount);
 
   return (
     <div className="pt-[6rem] px-4 lg:px-12 text-white">
@@ -15,7 +13,7 @@ const Payment = () => {
           <h2 className="text-xl font-semibold mb-4">Summary</h2>
           <div className="flex justify-between text-sm mb-2">
             <p>Total Items</p>
-            <p>{items.length}</p>
+            <p>{totalItemsPurchased}</p>
           </div>
           <div className="flex justify-between text-sm mb-2">
             <p>Subtotal</p>

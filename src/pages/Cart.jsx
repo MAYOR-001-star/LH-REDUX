@@ -1,27 +1,11 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { clearCart } from "../componenets/cartSlice";
 
 const Cart = () => {
-  const items = [
-    {
-      id: 1,
-      name: "Atlas Cloud Sync",
-      code: "ACS-3.2.5-SaaS-MultiNode",
-      price: 149.99,
-      quantity: 1,
-      image:
-        "https://images.pexels.com/photos/33796884/pexels-photo-33796884.jpeg?_gl=1*on75tl*_ga*Njc5MTk1MDkyLjE3NTc1MzU2MzU.*_ga_8JE65Q40S6*czE3NTc1NDI3MzQkbzIkZzEkdDE3NTc1NDI3NzgkajE2JGwwJGgw",
-    },
-    {
-      id: 2,
-      name: "AAI Script Pack 1",
-      code: "Build-AAI-1.0.0-Release-STM32X",
-      price: 139.99,
-      quantity: 1,
-      image:
-        "https://images.pexels.com/photos/33796884/pexels-photo-33796884.jpeg?_gl=1*on75tl*_ga*Njc5MTk1MDkyLjE3NTc1MzU2MzU.*_ga_8JE65Q40S6*czE3NTc1NDI3MzQkbzIkZzEkdDE3NTc1NDI3NzgkajE2JGwwJGgw",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { cartItems, total, amount } = useSelector((store) => store.cart);
 
   return (
     <div className="pt-[6rem] px-4 lg:px-12 text-white">
@@ -37,7 +21,7 @@ const Cart = () => {
 
       <div className="flex flex-col lg:flex-row justify-between gap-8">
         <div className="flex-1 space-y-6">
-          {items.map((item) => (
+          {cartItems.map((item) => (
             <div
               key={item.id}
               className="flex items-center justify-between bg-[#111] p-4 rounded-2xl shadow"
@@ -72,7 +56,7 @@ const Cart = () => {
           <h2 className="text-xl font-semibold mb-4">Summary</h2>
           <div className="flex justify-between text-sm mb-2">
             <p>Total Items</p>
-            <p>{items.length}</p>
+            <p>{amount}</p>
           </div>
           <div className="flex justify-between text-sm mb-2">
             <p>Subtotal</p>
@@ -84,14 +68,22 @@ const Cart = () => {
           </div>
           <div className="flex justify-between font-semibold text-lg border-t border-gray-700 pt-3">
             <p>Total</p>
-            <p>$139.99</p>
+            <p>${total}</p>
           </div>
-          <Link
-            to="/payment"
-            className="w-full mt-4 bg-white text-black font-medium py-2 rounded-lg hover:bg-gray-200 text-center block"
-          >
-            Proceed to Checkout
-          </Link>
+          <div className="block md:flex justify-between items-center gap-[5rem] lg:block">
+            <Link
+              to="/payment"
+              className="w-full mt-4 bg-white text-black font-medium py-2 rounded-lg hover:bg-gray-200 text-center block"
+            >
+              Proceed to Checkout
+            </Link>
+            <button
+              onClick={() => dispatch(clearCart())}
+              className="w-full mt-4 bg-white text-black font-medium py-2 rounded-lg hover:bg-gray-200 text-center block"
+            >
+              Clear Cart
+            </button>
+          </div>
         </div>
       </div>
     </div>
