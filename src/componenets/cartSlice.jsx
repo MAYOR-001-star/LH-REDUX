@@ -21,7 +21,7 @@ const initialState = {
         "https://images.pexels.com/photos/33796884/pexels-photo-33796884.jpeg?_gl=1*on75tl*_ga*Njc5MTk1MDkyLjE3NTc1MzU2MzU.*_ga_8JE65Q40S6*czE3NTc1NDI3MzQkbzIkZzEkdDE3NTc1NDI3NzgkajE2JGwwJGgw",
     },
   ],
-  amount: 7,
+  amount: 0,
   total: 0,
   //   isLoading: true,
 };
@@ -33,11 +33,45 @@ export const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
     },
+
+    removeItem: (state, action) => {
+      const itemId = action.payload;
+      const filteredItem = state.cartItems.filter((item) => item.id !== itemId);
+      state.cartItems = filteredItem;
+    },
+
+    increaseItem: (state, action) => {
+      const itemId = action.payload;
+      const cartItem = state.cartItems.find((item) => item.id === itemId);
+      cartItem.quantity = cartItem.quantity + 1;
+    },
+
+    decreaseItem: (state, action) => {
+      const itemId = action.payload;
+      const cartItem = state.cartItems.find((item) => item.id === itemId);
+      cartItem.quantity = cartItem.quantity - 1;
+    },
+
+    calculateTotals: (state) => {
+      let quantity = 0;
+      let total = 0;
+      state.cartItems.map((item) => {
+        quantity += item.quantity;
+        total += item.quantity * item.price;
+      });
+      state.amount = quantity;
+      state.total = total;
+    },
   },
 });
 
-console.log(cartSlice);
 
-export const { clearCart } = cartSlice.actions;
+export const {
+  clearCart,
+  removeItem,
+  increaseItem,
+  decreaseItem,
+  calculateTotals,
+} = cartSlice.actions;
 
 export default cartSlice;
