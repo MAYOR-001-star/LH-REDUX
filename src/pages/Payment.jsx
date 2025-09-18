@@ -1,6 +1,6 @@
 import React from "react";
-import FormPayment from "../componenets/FormPayment";
-import PaymentSummary from "../componenets/paymentSummary";
+import FormPayment from "../components/FormPayment";
+import PaymentSummary from "../components/paymentSummary";
 
 const Payment = () => {
   return (
@@ -10,7 +10,6 @@ const Payment = () => {
         <div className="h-fit lg:w-1/3 bg-[#111] p-6 rounded-2xl shadow">
           <PaymentSummary />
         </div>
-
         <FormPayment />
       </div>
     </div>

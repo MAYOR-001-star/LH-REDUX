@@ -7,8 +7,8 @@ import {
   increaseItem,
   decreaseItem,
   calculateTotals,
-} from "../componenets/cartSlice";
-import PaymentSummary from "../componenets/paymentSummary";
+} from "../components/cartSlice";
+import PaymentSummary from "../components/paymentSummary";
 
 const Cart = () => {
   const dispatch = useDispatch();
