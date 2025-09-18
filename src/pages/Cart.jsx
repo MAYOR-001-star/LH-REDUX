@@ -8,7 +8,7 @@ import {
   decreaseItem,
   calculateTotals,
 } from "../components/cartSlice";
-import PaymentSummary from "../components/paymentSummary";
+import PaymentSummary from "../components/PaymentSummary";
 
 const Cart = () => {
   const dispatch = useDispatch();

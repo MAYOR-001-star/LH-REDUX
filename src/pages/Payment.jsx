@@ -1,6 +1,6 @@
 import React from "react";
 import FormPayment from "../components/FormPayment";
-import PaymentSummary from "../components/paymentSummary";
+import PaymentSummary from "../components/PaymentSummary";
 
 const Payment = () => {
   return (
