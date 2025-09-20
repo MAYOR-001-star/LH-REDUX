@@ -14,17 +14,31 @@ export default function Auth() {
   const { register, handleSubmit, formState: { errors } } = form;
 
   const onSubmit = (data) => {
-    console.log(isLogin ? "Login Data:" : "Register Data:", data);
+    if (isLogin) {
+      console.log("Login Data:", data);
+      if (data.role === "seller") {
+        window.location.href = "/seller/dashboard"; // seller products page
+      } else {
+        window.location.href = "/buyer/home"; // buyer landing page
+      }
+    } else {
+      console.log("Register Data:", data);
+      if (data.role === "seller") {
+        window.location.href = "/seller/add-products";
+      } else {
+        window.location.href = "/buyer/home";
+      }
+    }
   };
 
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
+    window.location.href = "/buyer/home";
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white">
+    <div className="flex items-center justify-center min-h-screen bg-black text-white py-[10rem]">
       <div className="bg-neutral-900 p-8 rounded-2xl shadow-lg w-[400px] relative">
-        
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">{isLogin ? "Login" : "Register"}</h2>
           <button
@@ -82,6 +96,16 @@ export default function Auth() {
               />
               {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
+            <div>
+              <select
+                {...register("role")}
+                className="w-full p-3 rounded bg-neutral-800 outline-none"
+              >
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+              </select>
+              {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
+            </div>
             <button
               type="submit"
               className="w-full bg-white text-black font-semibold p-3 rounded hover:bg-gray-200"
@@ -128,6 +152,16 @@ export default function Auth() {
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
               )}
+            </div>
+            <div>
+              <select
+                {...register("role")}
+                className="w-full p-3 rounded bg-neutral-800 outline-none"
+              >
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+              </select>
+              {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
             </div>
             <button
               type="submit"

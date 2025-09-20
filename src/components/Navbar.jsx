@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const cartItems = useSelector((store)=>store.cart.amount)
+  const cartItems = useSelector((store) => store.cart.amount);
   return (
     <nav className="bg-[#242222] p-4 flex justify-between items-center fixed z-20 w-full">
-      <Link to="/">
+      <Link to="/" className="flex justify-between items-center">
         <img src="/logo.svg" alt="company-logo" className="w-[3rem]" />
+        <span className="ml-5 text-white">SHOPIFY</span>
       </Link>
       <div className="flex justify-between gap-4 items-center">
         <Link to="/" className="text-white">
