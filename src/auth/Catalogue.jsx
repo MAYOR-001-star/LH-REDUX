@@ -24,7 +24,7 @@ export default function SellerForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white">
+    <div className="flex items-center justify-center min-h-screen bg-black text-white py-[8rem]">
       <div className="bg-neutral-900 p-8 rounded-2xl shadow-lg w-[400px]">
         <h2 className="text-2xl font-bold mb-6">Add to Catalogue</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
