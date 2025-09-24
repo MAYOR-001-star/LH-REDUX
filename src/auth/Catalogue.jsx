@@ -87,7 +87,7 @@ export default function SellerForm() {
             type="submit"
             className="w-full bg-white text-black font-semibold p-3 rounded hover:bg-gray-200"
           >
-            Save Product
+            Add Product
           </button>
         </form>
       </div>

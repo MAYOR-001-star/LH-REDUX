@@ -4,7 +4,8 @@ import Layout from "./Layout";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
-import Authentication from "./auth/Authentication";
+import Login from "./auth/Login"
+import Register from "./auth/Register"
 import Catalogue from "./auth/Catalogue";
 import SellerProducts from "./pages/SellerProducts";
 
@@ -13,7 +14,8 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="auth" element={<Authentication />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route path="catalogue" element={<Catalogue />} />
         <Route path="seller-catalogue" element={<SellerProducts />} />
         <Route path="cart" element={<Cart />} />
