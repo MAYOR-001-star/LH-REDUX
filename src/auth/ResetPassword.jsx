@@ -2,34 +2,39 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "../lib/supabase";
-import { Link } from "react-router-dom";
-import { forgotPasswordSchema } from "../utils/validator";
+import { resetPasswordSchema } from "../utils/validator";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(forgotPasswordSchema) });
+  } = useForm({
+    resolver: zodResolver(resetPasswordSchema),
+    mode: "onChange",
+  });
 
   const onSubmit = async (data) => {
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-        redirectTo: "http://localhost:5173/reset-password",
+        redirectTo: "https://lh-redux.vercel.app/updatePassword", 
       });
 
       if (error) throw error;
 
-      alert("Password reset link sent to your email ✅");
+      toast.success("Password reset link sent ✅ Check your email");
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message || "Something went wrong");
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white">
-      <div className="bg-neutral-900 p-8 rounded-2xl shadow-lg w-[400px] relative">
-        <h2 className="text-2xl font-bold mb-6 text-center">Forgot Password</h2>
+      <ToastContainer position="top-right" autoClose={3000} />
+      <div className="bg-neutral-900 p-8 rounded-2xl shadow-lg w-[400px]">
+        <h2 className="text-2xl font-bold mb-6 text-center">Reset Password</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
@@ -52,12 +57,6 @@ export default function ForgotPassword() {
             {isSubmitting ? "Sending..." : "Send Reset Link"}
           </button>
         </form>
-
-        <div className="mt-6 text-center">
-          <Link to="/login" className="text-blue-400 underline">
-            Back to Login
-          </Link>
-        </div>
       </div>
     </div>
   );

@@ -147,10 +147,10 @@ export default function Login() {
             </button>
             <div className="flex justify-end mb-2">
               <Link
-                to="/forgot-password"
+                to="/reset-password"
                 className="text-blue-400 text-sm underline"
               >
-                Forgot Password?
+                Reset Password?
               </Link>
             </div>
           </form>

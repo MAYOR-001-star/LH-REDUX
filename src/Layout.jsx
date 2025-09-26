@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 const Layout = () => {
   const location = useLocation();
 
-  const noNavbarRoutes = ["/login", "/register", "/forgot-password"];
+  const noNavbarRoutes = ["/login", "/register", "/reset-password"];
 
   const showNavbar = !noNavbarRoutes.includes(location.pathname);
 

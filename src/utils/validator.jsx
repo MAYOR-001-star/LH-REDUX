@@ -28,6 +28,19 @@ export const productSchema = z.object({
   image: z.any().refine((file) => file?.length === 1, "Image is required"),
 });
 
-export const forgotPasswordSchema = z.object({
+export const resetPasswordSchema = z.object({
   email: z.string().email("Enter a valid email address"),
 });
+
+export const updatePasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(6, "Password must be at least 6 characters")
+      .max(50, "Password too long"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
