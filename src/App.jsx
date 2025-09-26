@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/Home";
@@ -8,6 +7,7 @@ import Login from "./auth/Login"
 import Register from "./auth/Register"
 import Catalogue from "./auth/Catalogue";
 import SellerProducts from "./pages/SellerProducts";
+import ForgotPassword from "./auth/ForgotPassword";
 
 const App = () => {
   return (
@@ -16,6 +16,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="catalogue" element={<Catalogue />} />
         <Route path="seller-catalogue" element={<SellerProducts />} />
         <Route path="cart" element={<Cart />} />

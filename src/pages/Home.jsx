@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useGetCategoryQuery } from "../services/CategoryApi";
 import Products from "./Products";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.onload = () => {
+      navigate("/login");
+    };
+  }, []);
   const { data, error, isLoading } = useGetCategoryQuery();
 
   const [selectedCategory, setSelectedCategory] = useState(null);

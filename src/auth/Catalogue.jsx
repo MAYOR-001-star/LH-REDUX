@@ -16,7 +16,7 @@ export default function SellerForm() {
   const onSubmit = (data) => {
     const productData = {
       ...data,
-      image: URL.createObjectURL(data.image[0]), 
+      image: URL.createObjectURL(data.image[0]),
     };
     console.log("Product Submitted:", productData);
 
@@ -24,7 +24,7 @@ export default function SellerForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white py-[8rem]">
+    <div className="flex items-center justify-center min-h-screen bg-black text-white py-[9.5rem]">
       <div className="bg-neutral-900 p-8 rounded-2xl shadow-lg w-[400px]">
         <h2 className="text-2xl font-bold mb-6">Add to Catalogue</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -83,12 +83,20 @@ export default function SellerForm() {
             )}
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-white text-black font-semibold p-3 rounded hover:bg-gray-200"
-          >
-            Add Product
-          </button>
+          <div className="flex justify-between items-center gap-5">
+            <button
+              type="submit"
+              className="w-full bg-white text-black font-semibold p-3 rounded hover:bg-gray-200"
+            >
+              Add Product
+            </button>
+            <button
+              type="submit"
+              className="w-full bg-red-500 text-black font-semibold p-3 rounded hover:bg-red-400"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>
