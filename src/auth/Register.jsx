@@ -35,6 +35,7 @@ export default function Register() {
   const password = watch("password") || "";
   const confirmPassword = watch("confirmPassword") || "";
 
+  // 🔑 Email/Password Sign Up
   const onSubmit = async (values) => {
     try {
       const { error } = await supabase.auth.signUp({
@@ -49,7 +50,7 @@ export default function Register() {
 
       if (error) throw error;
 
-      toast("Registration successful ✅. Please check your email to confirm.");
+      toast.success("Registration successful ✅. Please check your email to confirm.");
 
       if (values.role === "seller") {
         navigate("/catalogue");
@@ -59,7 +60,22 @@ export default function Register() {
 
       reset();
     } catch (err) {
-      toast(err?.message ?? String(err));
+      toast.error(err?.message ?? String(err));
+    }
+  };
+
+  // 🌍 Social Auth
+  const handleProviderLogin = async (provider) => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`, // adjust if needed
+        },
+      });
+      if (error) throw error;
+    } catch (err) {
+      toast.error(err?.message ?? String(err));
     }
   };
 
@@ -76,13 +92,22 @@ export default function Register() {
           </div>
 
           <div className="flex flex-col gap-3 mb-6">
-            <button className="flex items-center justify-center gap-2 w-full p-3 rounded bg-white text-black font-medium hover:bg-gray-200">
+            <button
+              onClick={() => handleProviderLogin("google")}
+              className="flex items-center justify-center gap-2 w-full p-3 rounded bg-white text-black font-medium hover:bg-gray-200"
+            >
               <FaGoogle /> Continue with Google
             </button>
-            <button className="flex items-center justify-center gap-2 w-full p-3 rounded bg-gray-800 hover:bg-gray-700">
+            <button
+              onClick={() => handleProviderLogin("github")}
+              className="flex items-center justify-center gap-2 w-full p-3 rounded bg-gray-800 hover:bg-gray-700"
+            >
               <FaGithub /> Continue with GitHub
             </button>
-            <button className="flex items-center justify-center gap-2 w-full p-3 rounded bg-blue-500 hover:bg-blue-600">
+            <button
+              onClick={() => handleProviderLogin("twitter")}
+              className="flex items-center justify-center gap-2 w-full p-3 rounded bg-blue-500 hover:bg-blue-600"
+            >
               <FaTwitter /> Continue with Twitter
             </button>
           </div>
@@ -93,6 +118,7 @@ export default function Register() {
             <div className="flex-1 h-px bg-gray-600"></div>
           </div>
 
+          {/* 📧 Email + Password Registration */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <input
