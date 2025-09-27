@@ -19,7 +19,7 @@ export default function ResetPassword() {
   const onSubmit = async (data) => {
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-        redirectTo: "https://lh-redux.vercel.app/updatePassword", 
+        redirectTo: "https://lh-redux.vercel.app/update-password", 
       });
 
       if (error) throw error;
