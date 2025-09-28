@@ -35,10 +35,10 @@ export default function Register() {
   const password = watch("password") || "";
   const confirmPassword = watch("confirmPassword") || "";
 
-  // 🔑 Email/Password Sign Up
+
   const onSubmit = async (values) => {
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
         options: {
@@ -50,7 +50,42 @@ export default function Register() {
 
       if (error) throw error;
 
-      toast.success("Registration successful ✅. Please check your email to confirm.");
+      const user = data?.user;
+      if (user) {
+        const userId = user.id;
+
+        if (values.role === "buyer") {
+          const { error: buyerError } = await supabase
+            .from("buyers")
+            .insert({
+              id: userId,
+              full_name: values.name,
+              email: values.email,
+            })
+            .select();
+
+          if (buyerError) {
+            throw buyerError;
+          }
+        } else if (values.role === "seller") {
+          const { error: sellerError } = await supabase
+            .from("sellers")
+            .insert({
+              id: userId,
+              full_name: values.name,
+              email: values.email,
+            })
+            .select();
+
+          if (sellerError) {
+            throw sellerError;
+          }
+        }
+      }
+
+      toast.success(
+        "Registration successful ✅. Please check your email to confirm."
+      );
 
       if (values.role === "seller") {
         navigate("/catalogue");
