@@ -2,8 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "../utils/validator";
+import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
 
 export default function SellerForm() {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -13,7 +16,21 @@ export default function SellerForm() {
     resolver: zodResolver(productSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const { error } = await supabase.from("sellers_products").insert([
+      {
+        name: data.name,
+        category: data.category,
+        price: data.price,
+        image: data.image[0] ? data.image[0].name : null,
+      },
+    ]);
+
+    if (error) {
+      console.error(error.message);
+      return;
+    }
+
     const productData = {
       ...data,
       image: URL.createObjectURL(data.image[0]),
@@ -22,6 +39,11 @@ export default function SellerForm() {
 
     reset();
   };
+
+
+  const exit = () => {
+    navigate("/seller-catalogue")
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white py-[9.5rem]">
@@ -91,7 +113,8 @@ export default function SellerForm() {
               Add Product
             </button>
             <button
-              type="submit"
+              type="button"
+              onClick={exit}
               className="w-full bg-red-500 text-black font-semibold p-3 rounded hover:bg-red-400"
             >
               Cancel
